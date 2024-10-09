@@ -23,6 +23,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+from functools import reduce
 from pywayland.protocol.wayland import WlKeyboard
 from xkbcommon import xkb
 
@@ -279,7 +280,8 @@ class Keyboard(_Device):
                 xkb_keysym,
             )
             keysyms = [xkb_keysym[0][i] for i in range(nsyms)]
-            mods = self.keyboard.modifier
+            mods = reduce([k.modifier for k in self.core.keyboards])
+            self.keyboard.modifier
             handled = False
             should_repeat = False
             if event.state == KEY_PRESSED:
