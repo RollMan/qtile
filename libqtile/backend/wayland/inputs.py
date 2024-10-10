@@ -281,8 +281,7 @@ class Keyboard(_Device):
                 xkb_keysym,
             )
             keysyms = [xkb_keysym[0][i] for i in range(nsyms)]
-            mods = reduce(or_, [k.modifier for k in self.core.keyboards])
-            self.keyboard.modifier
+            mods = reduce(or_, [k.keyboard.modifier for k in self.core.keyboards])
             handled = False
             should_repeat = False
             if event.state == KEY_PRESSED:
